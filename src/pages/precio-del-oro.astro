@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import GoldPrice from '../components/GoldPrice.astro';
+
+const factors = [
+  { t: 'Precio spot internacional', d: 'Es la cotización del oro en los mercados internacionales, expresada en dólares por onza troy (31,1035 gramos). Cambia de forma continua durante el día.' },
+  { t: 'Peso', d: 'El material se pesa con balanzas calibradas. El precio por gramo se obtiene dividiendo el precio de la onza troy entre 31,1035.' },
+  { t: 'Pureza (quilates o ley)', d: 'El oro puro es de 24 quilates (99,9 %). Una pieza de 18 quilates contiene 75 % de oro, por lo que su valor por gramo es proporcionalmente menor. La pureza se confirma mediante un ensayo.' },
+  { t: 'Condiciones de la operación', d: 'El valor final considera costos de refinación, transporte, seguros y documentación, que se detallan de forma transparente en cada liquidación.' },
+];
+---
+<Layout
+  title="Precio del oro hoy en tiempo real"
+  description="Precio del oro hoy en tiempo real: cotización spot por onza troy, gramo y kilo en dólares, y valor por gramo de oro de 24K, 22K, 18K, 14K y 10K."
+  breadcrumbs={[{ name: 'Precio del oro', path: '/precio-del-oro' }]}
+>
+  <PageHero
+    eyebrow="Mercado"
+    title="Precio del oro hoy"
+    subtitle="Cotización internacional del oro en tiempo real, por onza troy, gramo, kilogramo y quilates."
+  />
+
+  <section class="container-x py-24">
+    <GoldPrice showLink={false} />
+  </section>
+
+  <section class="bg-paper">
+    <div class="container-x grid gap-12 py-24 lg:grid-cols-3">
+      <div>
+        <p class="eyebrow">Cómo se calcula</p>
+        <h2 class="mt-4 text-3xl sm:text-4xl">¿De qué depende el precio del oro?</h2>
+        <div class="rule mt-8"></div>
+      </div>
+      <dl class="grid gap-10 sm:grid-cols-2 lg:col-span-2">
+        {factors.map((f) => (
+          <div>
+            <dt class="font-serif text-xl">{f.t}</dt>
+            <dd class="mt-3 leading-relaxed text-muted">{f.d}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
+  </section>
+
+  <section class="container-x pt-24">
+    <div class="flex flex-col items-start justify-between gap-8 border-y border-line py-12 md:flex-row md:items-center">
+      <div>
+        <h2 class="text-2xl sm:text-3xl">¿Necesita una cotización para su oro?</h2>
+        <p class="mt-3 text-muted">Le damos un valor basado en el precio del día, el peso y la pureza de su material.</p>
+      </div>
+      <a href="/contacto" class="btn-primary">Solicitar cotización</a>
+    </div>
+  </section>
+</Layout>

@@ -30,3 +30,19 @@
   }
   .card { @apply border border-line bg-white p-8; }
 }
+
+/* Precio del oro en vivo */
+[data-gold], [data-gold-karat] { transition: color 0.4s ease; font-variant-numeric: tabular-nums; }
+[data-flash="up"] { color: #15803d; }
+[data-flash="down"] { color: var(--color-red); }
+[data-gold-trend][data-dir="up"] { color: #15803d; }
+[data-gold-trend][data-dir="down"] { color: var(--color-red); }
+.live-dot { @apply inline-block h-2 w-2 rounded-full bg-muted/40; }
+[data-gold-status="live"] .live-dot { @apply bg-green-600; animation: live-pulse 2s ease-in-out infinite; }
+[data-gold-status="error"] .live-dot { @apply bg-red; }
+[data-gold-status="error"] .gold-error { display: inline; }
+.gold-error { display: none; }
+@keyframes live-pulse { 50% { opacity: 0.35; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-gold-status="live"] .live-dot { animation: none; }
+}

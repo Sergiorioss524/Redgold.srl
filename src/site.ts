@@ -47,6 +47,7 @@ export const nav = [
   { href: '/', label: 'Inicio' },
   { href: '/nosotros', label: 'Nosotros' },
   { href: '/servicios', label: 'Servicios' },
+  { href: '/precio-del-oro', label: 'Precio del oro' },
   { href: '/cumplimiento', label: 'Cumplimiento' },
   { href: '/preguntas-frecuentes', label: 'Preguntas' },
   { href: '/contacto', label: 'Contacto' },

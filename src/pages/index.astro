@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { site } from '../site';
+import GoldPrice from '../components/GoldPrice.astro';
 
 const services = [
   { title: 'Compra de oro', text: 'Adquirimos oro de productores y proveedores con documentación de origen verificable y liquidaciones transparentes.' },
@@ -46,6 +47,18 @@ const values = [
         </div>
       </div>
     </div>
+  </section>
+
+  <!-- Precio del oro en vivo -->
+  <section class="container-x pt-24">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="eyebrow">Mercado</p>
+        <h2 class="mt-4 text-3xl sm:text-4xl">Precio del oro hoy</h2>
+      </div>
+      <a href="/precio-del-oro" class="text-sm text-muted hover:text-red">Cómo se calcula el precio →</a>
+    </div>
+    <div class="mt-10"><GoldPrice /></div>
   </section>
 
   <!-- Servicios -->

@@ -1,0 +1,66 @@
+---
+// Panel completo del precio del oro (inicio y /precio-del-oro).
+interface Props { heading?: 'h1' | 'h2'; showLink?: boolean }
+const { heading: H = 'h2', showLink = true } = Astro.props;
+
+const units = [
+  { key: 'g', label: 'Por gramo' },
+  { key: 'kg', label: 'Por kilogramo' },
+];
+const karats = [
+  { k: '24K', purity: 0.999, label: '99,9 %' },
+  { k: '22K', purity: 0.9167, label: '91,7 %' },
+  { k: '18K', purity: 0.75, label: '75,0 %' },
+  { k: '14K', purity: 0.585, label: '58,5 %' },
+  { k: '10K', purity: 0.417, label: '41,7 %' },
+];
+---
+<div class="grid gap-px border border-line bg-line lg:grid-cols-5" data-gold-status>
+  <!-- Precio principal -->
+  <div class="bg-white p-8 sm:p-10 lg:col-span-2">
+    <div class="flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span>En vivo · Oro spot (XAU)</span>
+    </div>
+    <H class="mt-6 text-sm font-sans font-medium text-muted">Precio por onza troy</H>
+    <p class="mt-2 flex items-baseline gap-3">
+      <span class="font-serif text-4xl text-ink sm:text-5xl" data-gold="oz">US$ —</span>
+      <span class="text-lg" data-gold-trend></span>
+    </p>
+    <dl class="mt-8 grid grid-cols-2 gap-6 border-t border-line pt-6">
+      {units.map((u) => (
+        <div>
+          <dt class="text-xs uppercase tracking-[0.15em] text-muted">{u.label}</dt>
+          <dd class="mt-1 text-lg font-medium text-ink" data-gold={u.key}>US$ —</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="mt-8 text-xs text-muted">
+      Actualizado: <time data-gold-updated>—</time> · se actualiza cada 30 s
+      <span class="gold-error text-red"> · No se pudo actualizar el precio. Reintentando…</span>
+    </p>
+  </div>
+
+  <!-- Por quilates -->
+  <div class="bg-white p-8 sm:p-10 lg:col-span-3">
+    <p class="text-xs font-semibold uppercase tracking-[0.2em] text-muted">Valor por gramo según quilates</p>
+    <table class="mt-6 w-full text-left">
+      <thead class="sr-only"><tr><th>Quilates</th><th>Pureza</th><th>Precio por gramo</th></tr></thead>
+      <tbody class="divide-y divide-line">
+        {karats.map((r) => (
+          <tr>
+            <th scope="row" class="py-3 font-serif text-lg font-normal text-red">{r.k}</th>
+            <td class="py-3 text-sm text-muted">{r.label}</td>
+            <td class="py-3 text-right font-medium text-ink" data-gold-karat={r.purity}>US$ —</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+    <p class="mt-6 text-xs leading-relaxed text-muted">
+      Precios referenciales del mercado internacional (spot) en dólares estadounidenses.
+      No constituyen una oferta de compra o venta; el valor final de cada operación depende del peso,
+      el ensayo de pureza y las condiciones vigentes.
+      {showLink && <> <a href="/precio-del-oro" class="text-red underline underline-offset-4">Más información</a>.</>}
+    </p>
+  </div>
+</div>
