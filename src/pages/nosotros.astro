@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+---
+<Layout title="Nosotros" description="Conozca a RedGold S.R.L., comercializadora de oro comprometida con la transparencia y el origen responsable.">
+  <PageHero
+    eyebrow="Nosotros"
+    title="Una empresa construida sobre la confianza"
+    subtitle="Conectamos a productores de oro con compradores nacionales e internacionales bajo estándares de transparencia y cumplimiento."
+  />
+  <section class="container-x grid gap-16 py-24 lg:grid-cols-2">
+    <div class="space-y-6 text-lg leading-relaxed text-muted">
+      <!-- TODO: reemplazar con la historia real de la empresa -->
+      <p>RedGold S.R.L. nace con el propósito de ofrecer un servicio de comercialización de oro serio, seguro y transparente.</p>
+      <p>Trabajamos de cerca con nuestros proveedores para garantizar que cada operación cumpla con la normativa vigente y con buenas prácticas de debida diligencia.</p>
+    </div>
+    <div class="space-y-6">
+      <div class="card border-l-4 border-l-red">
+        <h2 class="text-2xl">Misión</h2>
+        <p class="mt-4 leading-relaxed text-muted">Comercializar oro de manera responsable, generando valor para productores, clientes y comunidades.</p>
+      </div>
+      <div class="card border-l-4 border-l-red">
+        <h2 class="text-2xl">Visión</h2>
+        <p class="mt-4 leading-relaxed text-muted">Ser un referente de confianza en la comercialización de oro, reconocido por su transparencia y trazabilidad.</p>
+      </div>
+    </div>
+  </section>
+</Layout>

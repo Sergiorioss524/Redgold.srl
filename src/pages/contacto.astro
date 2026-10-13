@@ -1,0 +1,56 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../site';
+const action = site.formEndpoint || `mailto:${site.email}`;
+const field = 'mt-2 w-full border border-line bg-white px-4 py-3 text-ink placeholder:text-muted/50 focus:border-red focus:outline-none';
+const label = 'block text-xs font-semibold uppercase tracking-[0.15em] text-muted';
+---
+<Layout title="Contacto" description="Contacte a RedGold S.R.L. para cotizaciones de compra, venta o exportación de oro.">
+  <PageHero eyebrow="Contacto" title="Contáctenos" subtitle="Indíquenos su consulta y le responderemos a la brevedad." />
+  <section class="container-x grid gap-16 py-24 lg:grid-cols-5">
+    <form action={action} method="POST" enctype={site.formEndpoint ? undefined : 'text/plain'} class="space-y-6 lg:col-span-3">
+      <div class="grid gap-6 sm:grid-cols-2">
+        <label class={label}>Nombre
+          <input name="nombre" required class={field} autocomplete="name" />
+        </label>
+        <label class={label}>Empresa
+          <input name="empresa" class={field} autocomplete="organization" />
+        </label>
+        <label class={label}>Correo electrónico
+          <input name="email" type="email" required class={field} autocomplete="email" />
+        </label>
+        <label class={label}>Teléfono
+          <input name="telefono" type="tel" class={field} autocomplete="tel" />
+        </label>
+      </div>
+      <label class={label}>Tipo de consulta
+        <select name="tipo" class={field}>
+          <option>Venta de oro</option>
+          <option>Compra de oro</option>
+          <option>Exportación</option>
+          <option>Otro</option>
+        </select>
+      </label>
+      <label class={label}>Mensaje
+        <textarea name="mensaje" rows="6" required class={field}></textarea>
+      </label>
+      <button type="submit" class="btn-primary">Enviar mensaje</button>
+    </form>
+
+    <aside class="lg:col-span-2">
+      <div class="border-l-4 border-red bg-paper p-8">
+        <h2 class="text-xl">Información de contacto</h2>
+        <dl class="mt-6 divide-y divide-line">
+          <div class="py-4"><dt class={label}>Correo</dt><dd class="mt-1"><a href={`mailto:${site.email}`} class="hover:text-red">{site.email}</a></dd></div>
+          <div class="py-4"><dt class={label}>Teléfono</dt><dd class="mt-1"><a href={`tel:${site.phone.replace(/\s/g, '')}`} class="hover:text-red">{site.phone}</a></dd></div>
+          <div class="py-4"><dt class={label}>Dirección</dt><dd class="mt-1">{site.address}</dd></div>
+          <div class="py-4"><dt class={label}>Horario</dt><dd class="mt-1">{site.hours}</dd></div>
+        </dl>
+        {site.whatsapp && (
+          <a href={`https://wa.me/${site.whatsapp}`} target="_blank" rel="noopener" class="btn-outline mt-6 w-full">WhatsApp</a>
+        )}
+      </div>
+    </aside>
+  </section>
+</Layout>

@@ -1,0 +1,41 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+
+const services = [
+  { title: 'Compra de oro', points: ['Recepción y pesaje del material', 'Ensayo de pureza', 'Liquidación transparente', 'Verificación de origen'] },
+  { title: 'Venta y comercialización', points: ['Suministro a refinerías', 'Atención a joyeros e industria', 'Contratos con condiciones claras', 'Entregas programadas'] },
+  { title: 'Exportación', points: ['Gestión de permisos y documentación', 'Coordinación logística', 'Transporte asegurado', 'Acompañamiento aduanero'] },
+];
+
+const steps = ['Contacto y solicitud', 'Verificación y documentación', 'Pesaje y ensayo', 'Liquidación y entrega'];
+---
+<Layout title="Servicios" description="Compra, venta y exportación de oro con procesos claros y trazables.">
+  <PageHero eyebrow="Servicios" title="Soluciones integrales en comercio de oro" subtitle="Acompañamos cada etapa de la operación, desde la recepción del metal hasta su destino final." />
+
+  <section class="container-x grid gap-8 py-24 md:grid-cols-3">
+    {services.map((s) => (
+      <div class="card border-t-4 border-t-red">
+        <h2 class="text-xl">{s.title}</h2>
+        <ul class="mt-6 divide-y divide-line">
+          {s.points.map((p) => <li class="py-3 text-muted">{p}</li>)}
+        </ul>
+      </div>
+    ))}
+  </section>
+
+  <section class="bg-paper">
+    <div class="container-x py-24">
+      <p class="eyebrow">Cómo trabajamos</p>
+      <h2 class="mt-4 text-3xl sm:text-4xl">Nuestro proceso</h2>
+      <ol class="mt-12 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
+        {steps.map((s, i) => (
+          <li class="bg-white p-8">
+            <span class="font-serif text-3xl text-red">{String(i + 1).padStart(2, '0')}</span>
+            <p class="mt-4 font-medium">{s}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+</Layout>

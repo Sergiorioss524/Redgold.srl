@@ -1,0 +1,30 @@
+---
+import { site, nav } from '../site';
+const year = new Date().getFullYear();
+---
+<footer class="mt-24 bg-ink text-white/70">
+  <div class="container-x grid gap-10 py-16 md:grid-cols-3">
+    <div class="space-y-4">
+      <p class="font-serif text-xl text-white"><span class="text-[#d8484e]">Red</span>Gold <span class="font-sans text-xs tracking-[0.2em] text-white/50">S.R.L.</span></p>
+      <p class="max-w-xs text-sm">{site.tagline}.</p>
+    </div>
+    <div>
+      <h3 class="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-white">Navegación</h3>
+      <ul class="space-y-2 text-sm">
+        {nav.map((i) => <li><a href={i.href} class="hover:text-white">{i.label}</a></li>)}
+      </ul>
+    </div>
+    <div>
+      <h3 class="mb-4 font-sans text-xs font-semibold uppercase tracking-[0.2em] text-white">Contacto</h3>
+      <ul class="space-y-2 text-sm">
+        <li><a href={`mailto:${site.email}`} class="hover:text-white">{site.email}</a></li>
+        <li><a href={`tel:${site.phone.replace(/\s/g, '')}`} class="hover:text-white">{site.phone}</a></li>
+        <li>{site.address}</li>
+        <li>{site.hours}</li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-6 text-center text-xs text-white/40">
+    © {year} {site.name}. Todos los derechos reservados.
+  </div>
+</footer>

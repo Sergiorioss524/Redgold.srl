@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Libre Baskerville", ui-serif, Georgia, serif;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --color-ink: #1d1d1f;
+  --color-muted: #5b5b60;
+  --color-line: #e4e2de;
+  --color-paper: #f7f6f3;
+  --color-red: #a1161c;
+  --color-red-dark: #7e1015;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply bg-white text-ink font-sans antialiased; }
+  h1, h2, h3 { @apply font-serif text-ink; }
+}
+
+@layer components {
+  .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
+  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.22em] text-red; }
+  .rule { @apply h-px w-12 bg-red; }
+  .btn-primary {
+    @apply inline-flex items-center justify-center bg-red px-6 py-3 text-sm font-medium tracking-wide text-white transition hover:bg-red-dark;
+  }
+  .btn-outline {
+    @apply inline-flex items-center justify-center border border-ink/80 px-6 py-3 text-sm font-medium tracking-wide text-ink transition hover:border-red hover:text-red;
+  }
+  .card { @apply border border-line bg-white p-8; }
+}

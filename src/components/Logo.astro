@@ -1,0 +1,16 @@
+---
+// Cuando tengas el logo, colócalo en public/images/logo.svg (o .png)
+// y cambia `useImage` a true.
+import { site } from '../site';
+const useImage = false;
+---
+<a href="/" class="flex items-center" aria-label={`${site.name} – inicio`}>
+  {useImage ? (
+    <img src="/images/logo.svg" alt={site.name} class="h-10 w-auto" />
+  ) : (
+    <span class="font-serif text-xl tracking-wide text-ink">
+      <span class="text-red">Red</span>Gold
+      <span class="ml-1 font-sans text-[0.65rem] font-medium tracking-[0.2em] text-muted">S.R.L.</span>
+    </span>
+  )}
+</a>

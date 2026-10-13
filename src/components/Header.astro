@@ -1,0 +1,46 @@
+---
+import Logo from './Logo.astro';
+import { nav, site } from '../site';
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+<div class="h-1 bg-red"></div>
+<div class="hidden border-b border-line bg-paper text-xs text-muted sm:block">
+  <div class="container-x flex h-9 items-center justify-end gap-6">
+    <a href={`mailto:${site.email}`} class="hover:text-red">{site.email}</a>
+    <a href={`tel:${site.phone.replace(/\s/g, '')}`} class="hover:text-red">{site.phone}</a>
+  </div>
+</div>
+<header class="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur">
+  <div class="container-x flex h-20 items-center justify-between">
+    <Logo />
+    <nav class="hidden items-center gap-9 md:flex" aria-label="Principal">
+      {nav.map((item) => (
+        <a
+          href={item.href}
+          class:list={[
+            'border-b-2 py-1 text-sm transition hover:text-red',
+            path === item.href ? 'border-red text-ink' : 'border-transparent text-muted',
+          ]}
+        >{item.label}</a>
+      ))}
+    </nav>
+    <button id="menu-btn" class="p-2 text-ink md:hidden" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-nav">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+  <nav id="mobile-nav" class="hidden border-t border-line md:hidden" aria-label="Móvil">
+    <div class="container-x flex flex-col py-2">
+      {nav.map((item) => (
+        <a href={item.href} class="border-b border-line py-3 text-ink last:border-0 hover:text-red">{item.label}</a>
+      ))}
+    </div>
+  </nav>
+</header>
+<script>
+  const btn = document.getElementById('menu-btn');
+  const menu = document.getElementById('mobile-nav');
+  btn?.addEventListener('click', () => {
+    const open = menu?.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', String(open));
+  });
+</script>
