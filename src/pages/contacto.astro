@@ -1,12 +1,16 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
-import { site } from '../site';
+import { site, fullAddress } from '../site';
 const action = site.formEndpoint || `mailto:${site.email}`;
 const field = 'mt-2 w-full border border-line bg-white px-4 py-3 text-ink placeholder:text-muted/50 focus:border-red focus:outline-none';
 const label = 'block text-xs font-semibold uppercase tracking-[0.15em] text-muted';
 ---
-<Layout title="Contacto" description="Contacte a RedGold S.R.L. para cotizaciones de compra, venta o exportación de oro.">
+<Layout
+  title="Contacto y cotizaciones de oro"
+  description="Contacte a RedGold S.R.L. para solicitar una cotización de compra, venta o exportación de oro. Atención personalizada y respuesta rápida."
+  breadcrumbs={[{ name: 'Contacto', path: '/contacto' }]}
+>
   <PageHero eyebrow="Contacto" title="Contáctenos" subtitle="Indíquenos su consulta y le responderemos a la brevedad." />
   <section class="container-x grid gap-16 py-24 lg:grid-cols-5">
     <form action={action} method="POST" enctype={site.formEndpoint ? undefined : 'text/plain'} class="space-y-6 lg:col-span-3">
@@ -44,7 +48,7 @@ const label = 'block text-xs font-semibold uppercase tracking-[0.15em] text-mute
         <dl class="mt-6 divide-y divide-line">
           <div class="py-4"><dt class={label}>Correo</dt><dd class="mt-1"><a href={`mailto:${site.email}`} class="hover:text-red">{site.email}</a></dd></div>
           <div class="py-4"><dt class={label}>Teléfono</dt><dd class="mt-1"><a href={`tel:${site.phone.replace(/\s/g, '')}`} class="hover:text-red">{site.phone}</a></dd></div>
-          <div class="py-4"><dt class={label}>Dirección</dt><dd class="mt-1">{site.address}</dd></div>
+          <div class="py-4"><dt class={label}>Dirección</dt><dd class="mt-1">{fullAddress}</dd></div>
           <div class="py-4"><dt class={label}>Horario</dt><dd class="mt-1">{site.hours}</dd></div>
         </dl>
         {site.whatsapp && (

@@ -8,9 +8,23 @@ const services = [
   { title: 'Exportación', points: ['Gestión de permisos y documentación', 'Coordinación logística', 'Transporte asegurado', 'Acompañamiento aduanero'] },
 ];
 
+const serviceSchema = services.map((s) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: s.title,
+  serviceType: s.title,
+  description: s.points.join('. ') + '.',
+  provider: { '@id': `${new URL('/', Astro.site).href.replace(/\/$/, '')}/#organization` },
+}));
+
 const steps = ['Contacto y solicitud', 'Verificación y documentación', 'Pesaje y ensayo', 'Liquidación y entrega'];
 ---
-<Layout title="Servicios" description="Compra, venta y exportación de oro con procesos claros y trazables.">
+<Layout
+  title="Compra, venta y exportación de oro"
+  description="Servicios de compra de oro, venta a refinerías y joyeros, y exportación de oro con pesaje, ensayo de pureza y liquidación transparente."
+  breadcrumbs={[{ name: 'Servicios', path: '/servicios' }]}
+  schema={serviceSchema}
+>
   <PageHero eyebrow="Servicios" title="Soluciones integrales en comercio de oro" subtitle="Acompañamos cada etapa de la operación, desde la recepción del metal hasta su destino final." />
 
   <section class="container-x grid gap-8 py-24 md:grid-cols-3">

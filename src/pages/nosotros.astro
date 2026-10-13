@@ -2,7 +2,11 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 ---
-<Layout title="Nosotros" description="Conozca a RedGold S.R.L., comercializadora de oro comprometida con la transparencia y el origen responsable.">
+<Layout
+  title="Nosotros: comercializadora de oro"
+  description="Conozca a RedGold S.R.L., comercializadora de oro comprometida con la transparencia, la trazabilidad y el origen responsable del metal."
+  breadcrumbs={[{ name: 'Nosotros', path: '/nosotros' }]}
+>
   <PageHero
     eyebrow="Nosotros"
     title="Una empresa construida sobre la confianza"

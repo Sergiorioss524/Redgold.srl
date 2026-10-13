@@ -1,0 +1,108 @@
+---
+import { site } from '../site';
+
+export interface Crumb { name: string; path: string }
+interface Props {
+  title: string;
+  description: string;
+  image?: string;
+  noindex?: boolean;
+  breadcrumbs?: Crumb[];
+  schema?: Record<string, unknown>[];
+}
+
+const { title, description, image = '/og-image.png', noindex = false, breadcrumbs = [], schema = [] } = Astro.props;
+const base = Astro.site ?? new URL(site.url);
+const canonical = new URL(Astro.url.pathname.replace(/\/$/, '') || '/', base).href;
+const ogImage = new URL(image, base).href;
+const orgId = `${base.href.replace(/\/$/, '')}/#organization`;
+const a = site.address;
+
+// Solo publica datos que estén completos, para no mostrarle a Google datos de relleno.
+const filled = (v: string) => v && !/^(Calle|Ciudad|Provincia|País|XX)/.test(v);
+
+const organization = {
+  '@context': 'https://schema.org',
+  '@type': ['Organization', 'LocalBusiness'],
+  '@id': orgId,
+  name: site.name,
+  legalName: site.legalName,
+  url: base.href,
+  logo: new URL('/icon-512.png', base).href,
+  image: ogImage,
+  description: site.description,
+  email: site.email,
+  telephone: site.phone,
+  ...(site.foundingDate && { foundingDate: site.foundingDate }),
+  ...(site.social.length && { sameAs: site.social }),
+  ...(filled(a.city) && {
+    address: {
+      '@type': 'PostalAddress',
+      ...(filled(a.street) && { streetAddress: a.street }),
+      addressLocality: a.city,
+      ...(filled(a.region) && { addressRegion: a.region }),
+      ...(a.postalCode && { postalCode: a.postalCode }),
+      ...(filled(a.country) && { addressCountry: a.country }),
+    },
+    areaServed: filled(a.countryName) ? a.countryName : undefined,
+  }),
+  ...(site.geo.lat !== 0 && { geo: { '@type': 'GeoCoordinates', latitude: site.geo.lat, longitude: site.geo.lng } }),
+  openingHoursSpecification: site.openingHours.map((h) => ({
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: h.days,
+    opens: h.opens,
+    closes: h.closes,
+  })),
+};
+
+const website = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: site.name,
+  url: base.href,
+  inLanguage: 'es',
+  publisher: { '@id': orgId },
+};
+
+const breadcrumbList = breadcrumbs.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [{ name: 'Inicio', path: '/' }, ...breadcrumbs].map((c, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: c.name,
+        item: new URL(c.path, base).href,
+      })),
+    }
+  : null;
+
+const graph = [organization, website, breadcrumbList, ...schema].filter(Boolean);
+---
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
+
+<!-- Open Graph (WhatsApp, Facebook, LinkedIn) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content={site.name} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content={site.name} />
+<meta property="og:locale" content={site.locale} />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImage} />
+
+{site.googleVerification && <meta name="google-site-verification" content={site.googleVerification} />}
+{site.bingVerification && <meta name="msvalidate.01" content={site.bingVerification} />}
+
+{graph.map((g) => <script type="application/ld+json" set:html={JSON.stringify(g)} />)}
