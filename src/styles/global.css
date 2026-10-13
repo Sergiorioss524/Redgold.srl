@@ -1,32 +1,42 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Libre Baskerville", ui-serif, Georgia, serif;
-  --font-sans: "Inter Variable", "Inter", ui-sans-serif, system-ui, sans-serif;
+  /* Tipografías del manual de marca. Gadugi y Century Gothic son fuentes con
+     licencia (Microsoft): se usan si el visitante las tiene instaladas y, si no,
+     sus equivalentes libres autoalojados. */
+  --font-heading: "Gadugi", "Open Sans Variable", "Open Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Gadugi", "Open Sans Variable", "Open Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Century Gothic", "Poppins", ui-sans-serif, system-ui, sans-serif;
 
-  --color-ink: #1d1d1f;
-  --color-muted: #5b5b60;
-  --color-line: #e4e2de;
-  --color-paper: #f7f6f3;
-  --color-red: #a1161c;
-  --color-red-dark: #7e1015;
+  /* Paleta institucional (manual de marca) */
+  --color-red: #8a1002;        /* Rojo oscuro  C0 M100 Y100 K50 */
+  --color-red-bright: #e30613; /* Rojo         C0 M100 Y100 K0  */
+  --color-red-dark: #6c0c01;
+  --color-steel: #b0bac0;      /* Gris metálico */
+  --color-slate: #394e59;      /* Gris pizarra  */
+  --color-ink: #1b1d1f;        /* Negro */
+  --color-muted: #4e5f68;
+  --color-line: #dfe4e7;
+  --color-paper: #f3f5f6;
 }
 
 @layer base {
   html { scroll-behavior: smooth; }
   body { @apply bg-white text-ink font-sans antialiased; }
-  h1, h2, h3 { @apply font-serif text-ink; }
+  h1, h2, h3 { @apply font-heading font-bold tracking-tight text-ink; }
 }
 
 @layer components {
   .container-x { @apply mx-auto w-full max-w-6xl px-4 sm:px-6; }
-  .eyebrow { @apply text-xs font-semibold uppercase tracking-[0.22em] text-red; }
-  .rule { @apply h-px w-12 bg-red; }
+  .eyebrow { @apply font-display text-xs font-bold italic uppercase tracking-[0.18em] text-red; }
+  /* Texto complementario de marca: Century Gothic Bold Italic */
+  .tagline { @apply font-display font-bold italic; }
+  .rule { @apply h-[3px] w-14 bg-gradient-to-r from-red to-red-bright; }
   .btn-primary {
-    @apply inline-flex items-center justify-center bg-red px-6 py-3 text-sm font-medium tracking-wide text-white transition hover:bg-red-dark;
+    @apply inline-flex items-center justify-center bg-red px-6 py-3 text-sm tracking-wide font-semibold text-white transition hover:bg-red-bright;
   }
   .btn-outline {
-    @apply inline-flex items-center justify-center border border-ink/80 px-6 py-3 text-sm font-medium tracking-wide text-ink transition hover:border-red hover:text-red;
+    @apply inline-flex items-center justify-center border border-slate px-6 py-3 text-sm font-semibold tracking-wide text-slate transition hover:border-red hover:text-red;
   }
   .card { @apply border border-line bg-white p-8; }
 }

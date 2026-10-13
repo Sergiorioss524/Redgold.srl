@@ -1,16 +1,22 @@
 ---
-// Cuando tengas el logo, colócalo en public/images/logo.svg (o .png)
-// y cambia `useImage` a true.
+// Logo oficial (manual de marca). Usa la versión para fondo claro u oscuro.
+// No deformar, rotar ni recolorear: ver brand/manual-de-marca.
+import { Image } from 'astro:assets';
 import { site } from '../site';
-const useImage = false;
+import logoClaro from '../assets/logo/logo-fondo-claro.png';
+import logoOscuro from '../assets/logo/logo-fondo-oscuro.png';
+
+interface Props { variant?: 'claro' | 'oscuro'; class?: string }
+const { variant = 'claro', class: className = 'h-14' } = Astro.props;
+const src = variant === 'oscuro' ? logoOscuro : logoClaro;
 ---
-<a href="/" class="flex items-center" aria-label={`${site.name} – inicio`}>
-  {useImage ? (
-    <img src="/images/logo.svg" alt={site.name} class="h-10 w-auto" />
-  ) : (
-    <span class="font-serif text-xl tracking-wide text-ink">
-      <span class="text-red">Red</span>Gold
-      <span class="ml-1 font-sans text-[0.65rem] font-medium tracking-[0.2em] text-muted">S.R.L.</span>
-    </span>
-  )}
+<a href="/" class="inline-flex shrink-0 items-center" aria-label={`${site.name} – inicio`}>
+  <Image
+    src={src}
+    alt={`${site.name} – Comercializadora Minera`}
+    class:list={['w-auto', className]}
+    widths={[160, 240, 320, 480]}
+    sizes="(min-width: 640px) 120px, 100px"
+    loading="eager"
+  />
 </a>

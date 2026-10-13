@@ -24,7 +24,7 @@ const faqSchema = {
     <div class="divide-y divide-line border-y border-line">
       {faq.map((f) => (
         <details class="group py-6">
-          <summary class="flex cursor-pointer list-none items-start justify-between gap-6 font-serif text-lg [&::-webkit-details-marker]:hidden">
+          <summary class="flex cursor-pointer list-none items-start justify-between gap-6 font-heading font-bold text-lg [&::-webkit-details-marker]:hidden">
             <h2 class="text-lg">{f.q}</h2>
             <span class="mt-1 text-red transition group-open:rotate-45" aria-hidden="true">+</span>
           </summary>

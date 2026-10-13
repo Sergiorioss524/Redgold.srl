@@ -1,23 +1,26 @@
 // Genera la imagen para redes sociales (og-image.png), el favicon y los íconos
-// a partir de public/logoblanco.png.
-// Uso: npm run images   (vuelve a ejecutarlo cuando tengas el logo definitivo)
+// a partir del logo oficial (src/assets/logo) y de public/logoblanco.png.
+// Uso: npm run images
 import sharp from 'sharp';
 import { writeFileSync } from 'node:fs';
 
-const RED = '#a1161c';
+const RED = '#8a1002'; // Rojo oscuro del manual de marca (variante logo blanco sobre rojo)
+const RED_BRIGHT = '#e30613';
 const out = (f) => new URL(`../public/${f}`, import.meta.url).pathname;
 
+// Imagen para redes: logo oficial a la izquierda, mensaje a la derecha.
 const og = `
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630">
+  <defs><linearGradient id="bar" x1="0" x2="1"><stop offset="0" stop-color="${RED}"/><stop offset=".5" stop-color="${RED_BRIGHT}"/><stop offset="1" stop-color="${RED}"/></linearGradient></defs>
   <rect width="1200" height="630" fill="#ffffff"/>
-  <rect width="1200" height="12" fill="${RED}"/>
-  <rect x="80" y="150" width="6" height="330" fill="${RED}"/>
-  <text x="130" y="250" font-family="Georgia, serif" font-size="96" fill="#1d1d1f"><tspan fill="${RED}">Red</tspan>Gold</text>
-  <text x="134" y="300" font-family="Helvetica, Arial, sans-serif" font-size="26" letter-spacing="8" fill="#5b5b60">S.R.L.</text>
-  <text x="134" y="400" font-family="Georgia, serif" font-size="40" fill="#1d1d1f">Compra, venta y exportación de oro</text>
-  <text x="134" y="455" font-family="Helvetica, Arial, sans-serif" font-size="26" fill="#5b5b60">Transparencia · Trazabilidad · Origen responsable</text>
-  <rect y="590" width="1200" height="40" fill="#f7f6f3"/>
+  <rect width="1200" height="12" fill="url(#bar)"/>
+  <rect x="610" y="190" width="4" height="250" fill="${RED}"/>
+  <text x="650" y="280" font-family="Century Gothic, Avenir Next, Helvetica, Arial, sans-serif" font-size="44" font-weight="700" fill="#1b1d1f">Compra, venta y</text>
+  <text x="650" y="335" font-family="Century Gothic, Avenir Next, Helvetica, Arial, sans-serif" font-size="44" font-weight="700" fill="#1b1d1f">exportación de oro</text>
+  <text x="650" y="400" font-family="Century Gothic, Avenir Next, Helvetica, Arial, sans-serif" font-size="24" font-style="italic" font-weight="700" fill="#394e59">Transparencia · Trazabilidad</text>
+  <rect y="590" width="1200" height="40" fill="#f3f5f6"/>
 </svg>`;
+const LOGO_COLOR = new URL('../src/assets/logo/logo-fondo-claro.png', import.meta.url).pathname;
 
 // Íconos: la montaña del logo (sin el texto, que no se lee en tamaños pequeños)
 // en blanco sobre un cuadrado rojo.
@@ -37,7 +40,11 @@ async function icon(size, file, padding = 0.16) {
   return buf;
 }
 
-await sharp(Buffer.from(og)).png().toFile(out('og-image.png'));
+const logo = await sharp(LOGO_COLOR).resize({ width: 480 }).toBuffer();
+await sharp(Buffer.from(og))
+  .composite([{ input: logo, left: 80, top: Math.round((630 - (await sharp(logo).metadata()).height) / 2) }])
+  .png()
+  .toFile(out('og-image.png'));
 for (const [file, size] of [['favicon-32.png', 32], ['favicon-48.png', 48], ['apple-touch-icon.png', 180], ['icon-192.png', 192], ['icon-512.png', 512]]) {
   await icon(size, file, size <= 48 ? 0.1 : 0.16);
 }

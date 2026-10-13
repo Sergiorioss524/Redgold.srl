@@ -24,7 +24,7 @@ const karats = [
     </div>
     <H class="mt-6 text-sm font-sans font-medium text-muted">Precio por onza troy</H>
     <p class="mt-2 flex items-baseline gap-3">
-      <span class="font-serif text-4xl text-ink sm:text-5xl" data-gold="oz">US$ —</span>
+      <span class="font-heading font-bold text-4xl text-ink sm:text-5xl" data-gold="oz">US$ —</span>
       <span class="text-lg" data-gold-trend></span>
     </p>
     <dl class="mt-8 grid grid-cols-2 gap-6 border-t border-line pt-6">
@@ -49,7 +49,7 @@ const karats = [
       <tbody class="divide-y divide-line">
         {karats.map((r) => (
           <tr>
-            <th scope="row" class="py-3 font-serif text-lg font-normal text-red">{r.k}</th>
+            <th scope="row" class="py-3 font-heading font-bold text-lg text-red">{r.k}</th>
             <td class="py-3 text-sm text-muted">{r.label}</td>
             <td class="py-3 text-right font-medium text-ink" data-gold-karat={r.purity}>US$ —</td>
           </tr>

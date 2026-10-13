@@ -4,7 +4,7 @@ import GoldTicker from './GoldTicker.astro';
 import { nav, site } from '../site';
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 ---
-<div class="h-1 bg-red"></div>
+<div class="h-1 bg-gradient-to-r from-red via-red-bright to-red"></div>
 <div class="border-b border-line bg-paper text-xs text-muted">
   <div class="container-x flex h-9 items-center justify-between gap-6">
     <GoldTicker />
@@ -15,8 +15,8 @@ const path = Astro.url.pathname.replace(/\/$/, '') || '/';
   </div>
 </div>
 <header class="sticky top-0 z-50 border-b border-line bg-white/95 backdrop-blur">
-  <div class="container-x flex h-20 items-center justify-between">
-    <Logo />
+  <div class="container-x flex h-20 items-center justify-between sm:h-28">
+    <Logo class="h-14 sm:h-20" />
     <nav class="hidden items-center gap-7 lg:flex" aria-label="Principal">
       {nav.map((item) => (
         <a

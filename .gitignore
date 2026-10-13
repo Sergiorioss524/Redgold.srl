@@ -22,3 +22,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Manual de marca: archivos fuente (.ai), tipografías con licencia y PDFs pesados.
+# No se versionan ni se publican; el repositorio es público.
+brand/

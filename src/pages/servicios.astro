@@ -45,7 +45,7 @@ const steps = ['Contacto y solicitud', 'Verificación y documentación', 'Pesaje
       <ol class="mt-12 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
         {steps.map((s, i) => (
           <li class="bg-white p-8">
-            <span class="font-serif text-3xl text-red">{String(i + 1).padStart(2, '0')}</span>
+            <span class="font-heading font-bold text-3xl text-red">{String(i + 1).padStart(2, '0')}</span>
             <p class="mt-4 font-medium">{s}</p>
           </li>
         ))}
